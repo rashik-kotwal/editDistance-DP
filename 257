@@ -1,0 +1,58 @@
+public static int min(int a,int b,int c)
+    {
+        if(a<b)
+        {
+            if(a<c)
+                return a;
+            else
+                return c;
+        }
+        else
+        {
+            if(b<c)
+                return b;
+            else
+                return c;
+        }
+    }
+    public static int editDist(String str1, String str2, int m,int n)
+    {
+        int[][] DP= new int[m][n];
+        
+        for(int i=0;i<n;i++)
+        {
+            DP[0][i]=i;
+        }
+        
+        for(int i=0;i<m;i++)
+        {
+            DP[i][0]=i;
+        }
+        
+        for(int i=1;i<m;i++)
+        {
+            for(int j=1;j<n;j++)
+            {
+                if(str1.charAt(i)==str2.charAt(j))
+                {DP[i][j]= DP[i-1][j-1];
+                //System.out.print(DP[i][j] + " ");
+                }
+                else
+                {
+                    DP[i][j] = 1 + min(DP[i-1][j],DP[i][j-1],DP[i-1][j-1]);
+                    //System.out.print(DP[i][j] + " ");
+                }
+            }
+            //System.out.println();
+        }
+        
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                // System.out.print(DP[i][j] + " ");
+            }
+           // System.out.println();
+        }
+        return DP[m-1][n-1];
+    }
